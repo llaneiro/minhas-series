@@ -17,13 +17,13 @@ export async function runMigrations(): Promise<void> {
     PRAGMA journal_mode = WAL;
 
     CREATE TABLE IF NOT EXISTS series (
-      id INTEGER PRIMARY KEY NOT NULL,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       titulo TEXT NOT NULL,
       plataforma TEXT NOT NULL,
       temporadas INTEGER NOT NULL,
-      nota REAL,
+      nota INTEGER,
       concluida INTEGER NOT NULL DEFAULT 0,
-      createdAt TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+      createdAt TEXT NOT NULL
     );
   `);
 }
