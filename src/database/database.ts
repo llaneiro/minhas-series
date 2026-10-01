@@ -5,14 +5,16 @@ let db: SQLite.SQLiteDatabase | null = null;
 export async function getDatabase(): Promise<SQLite.SQLiteDatabase> {
   if (!db) {
     db = await SQLite.openDatabaseAsync("minhas-series.db");
+
+    await runMigrations(db);
   }
 
   return db;
 }
 
-export async function runMigrations(): Promise<void> {
-  const database = await getDatabase();
-
+export async function runMigrations(
+  database: SQLite.SQLiteDatabase,
+): Promise<void> {
   await database.execAsync(`
     PRAGMA journal_mode = WAL;
 

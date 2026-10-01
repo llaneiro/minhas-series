@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 
 import { getSeries } from "../src/database/serieRepository";
 import { Serie, SerieFilter } from "../src/types/serie";
@@ -28,18 +28,19 @@ export default function Index() {
 
   const [series, setSeries] = useState<Serie[]>([]);
 
-  async function carregarSeries() {
+  const carregarSeries = useCallback(async () => {
     const resultado = await getSeries(filtro);
     setSeries(resultado);
-  }
-
-  useEffect(() => {
-    carregarSeries();
   }, [filtro]);
+
+  useFocusEffect(
+    useCallback(() => {
+      carregarSeries();
+    }, [carregarSeries]),
+  );
 
   return (
     <View className="flex-1 bg-white px-4 pt-4">
-      {/* Filtros */}
       <View className="mb-4 flex-row gap-2">
         {filtros.map((item) => (
           <Pressable
@@ -62,7 +63,6 @@ export default function Index() {
         ))}
       </View>
 
-      {/* Lista */}
       <FlatList
         data={series}
         keyExtractor={(item) => item.id.toString()}
@@ -99,7 +99,6 @@ export default function Index() {
         }
       />
 
-      {/* Nova série */}
       <Pressable
         onPress={() => router.push("/form")}
         className="mb-4 items-center rounded-xl bg-blue-600 py-3"
