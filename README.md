@@ -69,7 +69,10 @@ Para testar a persistência dos dados, foram cadastradas 3 séries, depois, o ap
 
 ### Evidências
 
-[Teste de persistência](./assets/teste-persistencia.mp4)
+
+https://github.com/user-attachments/assets/b3b5dee2-9a3d-4979-be11-72e9512874c3
+
+
 
 ## Diário do copiloto
 
