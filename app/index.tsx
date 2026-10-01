@@ -71,26 +71,47 @@ export default function Index() {
           paddingBottom: 16,
         }}
         renderItem={({ item }) => (
-          <View
+          <Pressable
+            onPress={() => router.push(`/detalhe?id=${item.id}`)}
             className={
               item.concluida === 1
                 ? "rounded-xl bg-gray-200 p-4"
                 : "rounded-xl bg-gray-100 p-4"
             }
           >
-            <Text className="text-lg font-bold text-black">{item.titulo}</Text>
+            <View className="flex-row">
+              <View className="flex-1">
+                <Text className="text-xl font-bold text-black">
+                  {item.titulo}
+                </Text>
 
-            <Text className="mt-1 text-gray-700">{item.plataforma}</Text>
+                <Text className="mt-1 text-gray-700">
+                  {item.temporadas}{" "}
+                  {item.temporadas === 1 ? "temporada" : "temporadas"}
+                </Text>
 
-            <Text className="mt-1 text-gray-700">
-              {item.temporadas}{" "}
-              {item.temporadas === 1 ? "temporada" : "temporadas"}
+                <Text className="mt-1 text-gray-700">{item.plataforma}</Text>
+              </View>
+
+              <View className="ml-4 items-center justify-center">
+                <Text className="text-4xl text-yellow-400">★</Text>
+
+                <Text className="text-lg font-bold text-black">
+                  {item.nota !== null ? item.nota.toFixed(1) : "-"}
+                </Text>
+              </View>
+            </View>
+
+            <Text
+              className={
+                item.concluida === 1
+                  ? "mt-4 font-bold text-green-600"
+                  : "mt-4 font-bold text-blue-600"
+              }
+            >
+              {item.concluida === 1 ? "Concluída" : "Assistindo"}
             </Text>
-
-            <Text className="mt-1 text-gray-700">
-              {item.nota !== null ? `⭐ ${item.nota}` : "Sem nota"}
-            </Text>
-          </View>
+          </Pressable>
         )}
         ListEmptyComponent={
           <Text className="mt-8 text-center text-gray-500">
